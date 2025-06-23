@@ -154,37 +154,12 @@ curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:5000/api/dreams
 ```bash
 curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:5000/api/dreams/stats
 ```
-## Testing & Coverage
+ 
+### **Get a Random Interpretation**
+```bash
+curl http://localhost:5000/api/interpretations/random
+```
 
-### Running Tests
-
-- To run all tests:
-  ```bash
-  npm test
-  ```
-- To run with coverage:
-  ```bash
-  npm run test:coverage
-  ```
-  ![Screenshot 2025-06-24 011958](https://github.com/user-attachments/assets/14602b7e-aadc-4c84-9f75-51d9271a22f2)
-
-
-
-### Test Structure & Best Practices
-- **Unique emails** are used for each test to avoid duplicate user errors.
-- **User cleanup**: All users are deleted before each test to ensure a clean state.
-- **Defensive checks**: Tests check for the existence of response data before accessing properties.
-- **Error handling**: The API now returns proper status codes for validation errors (400), not found (404), and unauthorized access (401).
-- **Coverage**: The test suite is designed to achieve at least 70% coverage, with most files at or above 80%.
-
----
-
-## API Usage & Sample Requests
-
-See the route files in the `routes/` directory for more endpoints and details.
-
-
----
 
 ## Notes
 - All protected routes require a valid JWT token in the `Authorization` header: `Bearer <JWT_TOKEN>`
