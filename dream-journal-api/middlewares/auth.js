@@ -17,16 +17,24 @@ exports.protect = async (req, res, next) => {
 
   // Make sure token exists
   if (!token) {
+    console.error('No token found in Authorization header or cookies');
     return next(new ErrorResponse('Not authorized to access this route', 401));
   }
 
   try {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Decoded JWT payload:', decoded);
 
     req.user = await User.findById(decoded.id);
+    console.log('User found by decoded.id:', req.user);
+    if (!req.user) {
+      console.error('No user found for decoded.id');
+      return next(new ErrorResponse('Not authorized to access this route', 401));
+    }
     next();
   } catch (err) {
+    console.error('JWT verification error:', err.message);
     return next(new ErrorResponse('Not authorized to access this route', 401));
   }
 };

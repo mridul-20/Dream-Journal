@@ -14,12 +14,20 @@ const generateToken = (id) => {
 // @route   POST /api/auth/register
 // @access  Public
 exports.register = asyncHandler(async (req, res, next) => {
+  console.log('Register request body:', req.body); // Log request body
   const { username, email, password } = req.body;
+
+  // Check for required fields
+  if (!username || !email || !password) {
+    console.error('Missing required fields');
+    return next(new ErrorResponse('Please provide username, email, and password', 400));
+  }
 
   // Check if user already exists
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    return next(new ErrorResponse('User already exists with this email', 400));
+    console.error('Email already exists');
+    return next(new ErrorResponse('email already exists', 400));
   }
 
   // Create user
@@ -50,17 +58,24 @@ exports.register = asyncHandler(async (req, res, next) => {
 // @route   POST /api/auth/login
 // @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
+  console.log('Login request body:', req.body); // Log request body
   const { email, password } = req.body;
 
   // Validate email & password
-  if (!email || !password) {
-    return next(new ErrorResponse('Please provide email and password', 400));
+  if (!email) {
+    console.error('Email is required');
+    return next(new ErrorResponse('Email is required', 400));
+  }
+  if (!password) {
+    console.error('Password is required');
+    return next(new ErrorResponse('Password is required', 400));
   }
 
   // Check for user and include password field
   const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
+    console.error('Invalid credentials: user not found');
     return next(new ErrorResponse('Invalid credentials', 401));
   }
 
@@ -68,6 +83,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   const isMatch = await user.matchPassword(password);
 
   if (!isMatch) {
+    console.error('Invalid credentials: password mismatch');
     return next(new ErrorResponse('Invalid credentials', 401));
   }
 

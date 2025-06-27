@@ -32,6 +32,7 @@ describe('Auth Integration Tests', () => {
       .send(userData)
       .expect(201);
 
+    console.log('Register response:', res.body);
     expect(res.body.success).toBe(true);
     expect(res.body.token).toBeDefined();
     expect(res.body.user.email).toBe(userData.email);
@@ -64,6 +65,7 @@ describe('Auth Integration Tests', () => {
       .send({ email: userData.email, password: userData.password })
       .expect(200);
 
+    console.log('Login response:', res.body);
     expect(res.body.success).toBe(true);
     expect(res.body.token).toBeDefined();
     expect(res.body.user.email).toBe(userData.email);
