@@ -32,7 +32,7 @@ jobs:
       working-directory: ./dream-journal-api
 
     - name: Run tests with coverage
-      run: ./node_modules/.bin/jest --coverage
+      run: ./node_modules/.bin/jest --coverage --runInBand
       working-directory: ./dream-journal-api
       env:
         MONGO_URI: ${{ secrets.MONGO_URI }}
