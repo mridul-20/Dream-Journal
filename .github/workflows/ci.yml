@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Keploy CLI
+      run: |
+        curl --silent -L https://keploy.io/ent/install.sh | bash
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./dream-journal-api
+
+    - name: Lint
+      run: npm run lint || echo 'No lint script defined.'
+      working-directory: ./dream-journal-api
+
+    - name: Run tests with coverage
+      run: npm run test:coverage
+      working-directory: ./dream-journal-api
+
+    - name: Start Server for Keploy Tests
+      run: npm start &
+      working-directory: ./dream-journal-api
+
+    - name: Run Keploy Test Suite
+      run: |
+        export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
+        keploy test-suite --app=03d24177-315c-4ee1-a3ac-64ed0ab38567 --base-path http://localhost:5000/api --cloud
+      working-directory: ./dream-journal-api
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: dream-journal-api/coverage/ 
