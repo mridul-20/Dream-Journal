@@ -36,12 +36,16 @@ jobs:
       working-directory: ./dream-journal-api
       env:
         MONGO_URI: ${{ secrets.MONGO_URI }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
 
     - name: Start Server for Keploy Tests
       run: npm start &
       working-directory: ./dream-journal-api
       env:
         MONGO_URI: ${{ secrets.MONGO_URI }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
 
     - name: Run Keploy Test Suite
       run: |
