@@ -17,11 +17,14 @@ beforeAll(async () => {
   await Dream.deleteMany({});
 
   // Create and login a user
+  const userData = { username: 'dreamuser', email: 'dreamuser@example.com', password: 'dreampass123' };
   const userRes = await request(app)
     .post('/api/auth/register')
-    .send({ username: 'dreamuser', email: 'dreamuser@example.com', password: 'dreampass123' });
-  token = userRes.body.token;
-  userId = userRes.body._id || userRes.body.user?._id || userRes.body.data?._id;
+    .send(userData);
+  expect(userRes.body.success).toBe(true);
+  expect(userRes.body.user).toBeDefined();
+  expect(userRes.body.user.id).toBeDefined();
+  const userId = userRes.body.user.id;
   
   if (!userId) {
     console.error('Registration response:', userRes.body);
@@ -34,6 +37,13 @@ beforeAll(async () => {
     .send({ username: 'otheruser', email: 'otheruser@example.com', password: 'otherpass123' });
   otherToken = otherRes.body.token;
   otherUserId = otherRes.body._id || otherRes.body.user?._id || otherRes.body.data?._id;
+
+  const loginRes = await request(app)
+    .post('/api/auth/login')
+    .send({ email: userData.email, password: userData.password });
+  expect(loginRes.body.success).toBe(true);
+  expect(loginRes.body.token).toBeDefined();
+  const token = loginRes.body.token;
 });
 
 afterAll(async () => {
