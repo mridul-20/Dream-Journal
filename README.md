@@ -1,5 +1,8 @@
 # Dream Journal API
 
+![CI](https://github.com/mridul-20/Dream-Journal/actions/workflows/ci.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-91%25-brightgreen)
+
 A RESTful API for recording, analyzing, and interpreting dreams. Built with Node.js, Express, and MongoDB.
 
 ---
@@ -17,7 +20,8 @@ A RESTful API for recording, analyzing, and interpreting dreams. Built with Node
 - [Features & APIs](#features--apis)
 - [Database](#database)
 - [Setup & Running the Server](#setup--running-the-server)
-- [Running the Frontend (Optional)](#running-the-frontend-optional)
+- [CI/CD & Test Report](#cicd--test-report)
+- [Running the Frontend](#running-the-frontend-optional)
 - [API Usage & Sample Requests](#api-usage--sample-requests)
 
 ---
@@ -69,6 +73,32 @@ A RESTful API for recording, analyzing, and interpreting dreams. Built with Node
 
 ---
 
+## CI/CD & Test Report
+
+This project uses **GitHub Actions** for continuous integration and automated testing. Every push and pull request to the `main` branch triggers the following workflow:
+
+- Install dependencies
+- Run all tests with coverage
+- Upload a detailed coverage report as an artifact
+
+**Latest Coverage Summary:**
+- **Statements:** 96% (192/200)
+- **Branches:** 89.55% (43/60)
+- **Functions:** 92% (23/25)
+- **Lines:** 96.74% (189/196)
+
+**Manual Test Report Screenshot:**
+<!-- Add your test report screenshot below -->
+
+![Screenshot 2025-06-24 011958](https://github.com/user-attachments/assets/b8cc99c7-b035-49fd-8960-867851b499d2)
+
+**Automated Test Report Screenshot:**
+
+![Screenshot 2025-06-27 195649](https://github.com/user-attachments/assets/e4b6e0b5-c6bf-4add-9751-d98babfe5b60)
+
+
+---
+
 ## Running the Frontend 
 If you have a frontend in `dream-journal-frontend`, follow its README or run:
 ```bash
@@ -83,10 +113,6 @@ The frontend will typically run on `http://localhost:3000`.
 ![Screenshot 2025-06-20 235435](https://github.com/user-attachments/assets/a773f42d-027b-4a99-b264-e5da3d46dcfb)
 
 ![Screenshot 2025-06-20 235755](https://github.com/user-attachments/assets/2c259292-f31f-4969-b878-2743de139b65)
-
-
-
-
 
 ---
 
@@ -157,11 +183,6 @@ curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:5000/api/dreams/sta
   ```bash
   npm run test:coverage
   ```
-
-![Screenshot 2025-06-27 195649](https://github.com/user-attachments/assets/eb4fba54-a193-4526-bd7c-e4efa6779afa)
-
-
-
 
 ### Test Structure & Best Practices
 - **Unique emails** are used for each test to avoid duplicate user errors.
