@@ -27,8 +27,8 @@ jobs:
       run: npm install
       working-directory: ./dream-journal-api
 
-    - name: Lint
-      run: npm run lint || echo 'No lint script defined.'
+    - name: Add execute permission to Jest
+      run: chmod +x ./node_modules/.bin/jest
       working-directory: ./dream-journal-api
 
     - name: Run tests with coverage
