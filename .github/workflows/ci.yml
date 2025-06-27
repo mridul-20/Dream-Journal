@@ -34,10 +34,14 @@ jobs:
     - name: Run tests with coverage
       run: ./node_modules/.bin/jest --coverage
       working-directory: ./dream-journal-api
+      env:
+        MONGO_URI: ${{ secrets.MONGO_URI }}
 
     - name: Start Server for Keploy Tests
       run: npm start &
       working-directory: ./dream-journal-api
+      env:
+        MONGO_URI: ${{ secrets.MONGO_URI }}
 
     - name: Run Keploy Test Suite
       run: |
