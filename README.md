@@ -157,7 +157,9 @@ curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:5000/api/dreams/sta
   ```bash
   npm run test:coverage
   ```
-![Screenshot 2025-06-24 011958](https://github.com/user-attachments/assets/25096a2a-0919-4ec6-9696-24d8f116198d)
+
+![Screenshot 2025-06-27 195649](https://github.com/user-attachments/assets/eb4fba54-a193-4526-bd7c-e4efa6779afa)
+
 
 
 
