@@ -36,11 +36,6 @@ A RESTful API for recording, analyzing, and interpreting dreams. Built with Node
 - **DELETE /api/dreams/:id** — Delete a dream (only your own)
 - **GET /api/dreams/stats** — Get statistics about your dreams
 
-### **Interpretations**
-- **GET /api/interpretations/random** — Get a random or keyword-based dream interpretation
-- **GET /api/interpretations** — (Admin only) Get all interpretations
-- **POST /api/interpretations** — (Admin only) Create a new interpretation
-
 ---
 
 ## Database
@@ -66,11 +61,7 @@ A RESTful API for recording, analyzing, and interpreting dreams. Built with Node
    NODE_ENV=development
    PORT=5000
    ```
-4. **Seed the database with sample interpretations (optional):**
-   ```bash
-   node seedInterpretations.js
-   ```
-5. **Start the server:**
+4. **Start the server:**
    ```bash
    npm run dev
    ```
@@ -154,11 +145,37 @@ curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:5000/api/dreams
 ```bash
 curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:5000/api/dreams/stats
 ```
- 
-### **Get a Random Interpretation**
-```bash
-curl http://localhost:5000/api/interpretations/random
-```
+ ## Testing & Coverage
+
+### Running Tests
+
+- To run all tests:
+  ```bash
+  npm test
+  ```
+- To run with coverage:
+  ```bash
+  npm run test:coverage
+  ```
+![Screenshot 2025-06-24 011958](https://github.com/user-attachments/assets/25096a2a-0919-4ec6-9696-24d8f116198d)
+
+
+
+### Test Structure & Best Practices
+- **Unique emails** are used for each test to avoid duplicate user errors.
+- **User cleanup**: All users are deleted before each test to ensure a clean state.
+- **Defensive checks**: Tests check for the existence of response data before accessing properties.
+- **Error handling**: The API now returns proper status codes for validation errors (400), not found (404), and unauthorized access (401).
+- **Coverage**: The test suite is designed to achieve at least 70% coverage, with most files at or above 80%.
+
+---
+
+## API Usage & Sample Requests
+
+See the route files in the `routes/` directory for more endpoints and details.
+
+---
+
 
 
 ## Notes
